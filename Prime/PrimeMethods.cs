@@ -9,35 +9,34 @@ namespace Prime
 
     internal class PrimeMethods
     {
-        private static List<int> InitArray;
+        private static Dictionary<int,bool> InitArray;
         private static List<int> ResultsArray = new List<int>();
         private static List<int> NumbersToDelete =new List<int>();
 
         private static void intArray(int i)
         {
-            InitArray= Enumerable.Range(2, i).ToList<int>();
+            InitArray= Enumerable.Range(2, i-1).ToDictionary(x => x, x => false);
         }
-        public static List<int> processPrimes(int i)
+
+        public static List<int> prime(int st)
         {
-            intArray(i);
-            while (InitArray.Count>0)
+            intArray(st);
+            foreach (int item in InitArray.Keys)
             {
-                ResultsArray.Add(InitArray[0]);
-                foreach (int j in InitArray.ToArray<int>())
+                if (InitArray[item] == false)
                 {
-                    if (j % InitArray[0] == 0)
+                    ResultsArray.Add(item);
+                    for (int i = item; i <= st; i++)
                     {
-                        NumbersToDelete.Add(j);
+                        if (i%item ==0 )
+                        {
+                            InitArray[i] = true;
+                        }
                     }
-                }
-                foreach (int j in NumbersToDelete.ToArray<int>())
-                {
-
-                    InitArray.Remove(j);
 
                 }
-                NumbersToDelete.Clear();
             }
+            //Console.WriteLine(string.Join(", ", InitArray.ToArray()));
             return ResultsArray;
         }
     }
