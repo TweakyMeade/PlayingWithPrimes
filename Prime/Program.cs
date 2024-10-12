@@ -8,7 +8,7 @@ namespace Prime
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            string results = String.Join(',',PrimeMethods.prime(1000000));
+            string results = String.Join(',',PrimeMethods.prime(10000000));
             stopWatch.Stop();
             File.WriteAllText("Results.txt",$"Time in Milliseconds:{stopWatch.ElapsedMilliseconds.ToString()}\n\n{results}");
         }
